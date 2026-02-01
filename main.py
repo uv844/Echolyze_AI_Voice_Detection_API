@@ -24,11 +24,16 @@ class DetectionResponse(BaseModel):
     confidenceScore: float # 0.0 to 1.0
     explanation: str
 
+@app.get("/")
+async def home():
+    return {"message": "Echolyze AI Voice Detection API is Live!", "docs": "/docs"}
+
 @app.post("/detect", response_model=DetectionResponse)
 async def detect_voice(
     request: DetectionRequest, 
     x_api_key: Annotated[str | None, Header()] = None
 ):
+    # ... (rest of your code)
     # AUTHENTICATION CHECK
     if x_api_key != VALID_API_KEY:
         raise HTTPException(
